@@ -1,0 +1,153 @@
+---
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: PortSwigger
+providerId: portswigger
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+tags:
+  - Security
+  - DAST
+  - Penetration Testing
+  - Web Security
+description: >-
+  PortSwigger offers three product tiers: Community Edition (free), Professional
+  (annual subscription per user), and DAST/Enterprise (custom quote with
+  pay-as-you-scan or annual license options).
+sources:
+  - https://portswigger.net/pricing
+  - https://portswigger.net/buy/pro
+  - https://portswigger.net/burp/dast/pricing
+  - https://portswigger.net/burp/account-and-subscription-management/pay-as-you-scan
+plans:
+  - id: portswigger-community
+    name: Community Edition
+    type: free
+    description: >-
+      Free edition for learning web security and manual testing. Includes HTTP/S
+      proxy and history, Repeater, Decoder, Sequencer, Comparer, and Burp Intruder
+      in demo mode. No automated scanner; no project saving.
+    entries:
+      - label: HTTP/S Proxy and History
+        name: proxy
+        type: boolean
+        metric: feature
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Automated Scanner
+        name: scanner
+        type: boolean
+        metric: feature
+        limit: 0
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Project File Saving
+        name: project-saving
+        type: boolean
+        metric: feature
+        limit: 0
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+
+  - id: portswigger-professional
+    name: Professional
+    type: paid
+    description: >-
+      Annual per-user subscription for security professionals. Includes full
+      Burp Scanner, automated crawling, project saving, Burp Collaborator (OAST),
+      full Burp Intruder, and access to all BApp Store extensions. License
+      renewable annually; multi-year discounts available.
+    entries:
+      - label: Annual Subscription per User
+        name: annual-license
+        type: metered
+        metric: user_per_year
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'contact-for-pricing'
+        userMultiplied: true
+      - label: Automated Vulnerability Scanner
+        name: scanner
+        type: boolean
+        metric: feature
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'included'
+        userMultiplied: false
+      - label: Burp Collaborator (OAST)
+        name: collaborator
+        type: boolean
+        metric: feature
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'included'
+        userMultiplied: false
+
+  - id: portswigger-dast-enterprise
+    name: DAST Enterprise
+    type: enterprise
+    description: >-
+      Enterprise-grade dynamic application security testing with unlimited users,
+      self-hosted or cloud deployment options, CI/CD integration via GraphQL and
+      REST APIs, role-based access control, and free technical support. Pricing
+      is custom and requires contacting sales. Pay-as-you-scan (PAYS) option
+      available with 500 scan-hours/month default cap.
+    entries:
+      - label: Unlimited Users
+        name: users
+        type: boolean
+        metric: feature
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'contact-for-pricing'
+        userMultiplied: false
+      - label: Scan Hours (PAYS monthly cap default)
+        name: scan-hours
+        type: quota
+        metric: scan_hours
+        limit: 500
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'metered-per-hour'
+        userMultiplied: false
+      - label: GraphQL API Access
+        name: graphql-api
+        type: boolean
+        metric: feature
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'included'
+        userMultiplied: false
+      - label: REST API Access
+        name: rest-api
+        type: boolean
+        metric: feature
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'included'
+        userMultiplied: false

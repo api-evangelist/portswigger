@@ -1,0 +1,55 @@
+---
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: PortSwigger
+providerId: portswigger
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+tags:
+  - Rate Limiting
+  - DAST
+  - API Security
+description: >-
+  PortSwigger Burp Suite DAST APIs do not publish explicit per-minute or per-hour
+  request rate limits in public documentation. The PAYS (Pay-as-you-scan) model
+  enforces a default cap of 500 scan-hours per month, adjustable upon request.
+  API access is gated by API key authentication and role-based permissions.
+sources:
+  - https://portswigger.net/burp/documentation/dast/user-guide/api-documentation
+  - https://portswigger.net/burp/account-and-subscription-management/pay-as-you-scan
+headers:
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+limits:
+  - name: DAST GraphQL API Requests
+    scope: key
+    metric: requests_per_minute
+    limit: -1
+    timeFrame: minute
+    notes: >-
+      No explicit rate limit documented. Requests are authenticated via API key
+      and subject to role-based access control. Contact PortSwigger for
+      enterprise-specific limits.
+
+  - name: DAST REST API Requests
+    scope: key
+    metric: requests_per_minute
+    limit: -1
+    timeFrame: minute
+    notes: >-
+      No explicit rate limit documented. Requests require API key authentication.
+      REST API exposes limited functionality compared to GraphQL API.
+
+  - name: PAYS Scan Hours Monthly Cap
+    scope: org
+    metric: scan_hours_per_month
+    limit: 500
+    timeFrame: month
+    notes: >-
+      Default monthly scan hours cap for Pay-as-you-scan subscriptions.
+      Cap is adjustable upon request. Scans run to completion even if
+      the monthly limit is exceeded; overages are billed. Billed per minute,
+      rounded to the nearest cent.
