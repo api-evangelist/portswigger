@@ -1,0 +1,14 @@
+{
+  "repo": "portswigger",
+  "feeds": [
+    {
+      "source": "https://portswigger.net/blog",
+      "feed_url": "https://portswigger.net/blog/rss",
+      "title": "PortSwigger Blog",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-12T00:00:00Z"
+}

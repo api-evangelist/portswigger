@@ -1,0 +1,71 @@
+{
+  "@context": {
+    "@vocab": "https://portswigger.net/schema/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "BurpSuite": "schema:SoftwareApplication",
+    "DastScan": "schema:Action",
+    "SecurityIssue": "schema:Thing",
+    "Agent": "schema:SoftwareAgent",
+    "Site": "schema:WebSite",
+    "ScanConfiguration": "schema:PropertyValue",
+    "ApiKey": "schema:AccessPermission",
+    "Report": "schema:Report",
+    "Extension": "schema:SoftwareSourceCode",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "version": "schema:version",
+    "dateCreated": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "dateModified": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "status": "schema:status",
+    "severity": "schema:rating",
+
+    "scanId": "schema:identifier",
+    "siteId": "schema:identifier",
+    "issueId": "schema:identifier",
+    "agentId": "schema:identifier",
+
+    "scanStatus": "schema:actionStatus",
+    "startTime": {
+      "@id": "schema:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "endTime": {
+      "@id": "schema:endTime",
+      "@type": "xsd:dateTime"
+    },
+    "issueCount": "schema:numberOfItems",
+    "issueType": "schema:additionalType",
+    "issueDefinition": "schema:description",
+    "confidence": "schema:valueReference",
+
+    "siteUrl": "schema:url",
+    "siteLoginUrl": "schema:loginPage",
+    "scanConfigurations": "schema:configuration",
+
+    "agentName": "schema:name",
+    "agentType": "schema:additionalType",
+    "agentStatus": "schema:status",
+
+    "reportFormat": "schema:encodingFormat",
+    "reportContent": "schema:text",
+
+    "extensionName": "schema:name",
+    "extensionAuthor": "schema:author",
+    "extensionVersion": "schema:version",
+    "bappStoreUrl": "schema:url",
+
+    "mcpServerPort": "schema:portNumber",
+    "mcpServerHost": "schema:serverAddress",
+    "mcpTool": "schema:Tool"
+  }
+}
