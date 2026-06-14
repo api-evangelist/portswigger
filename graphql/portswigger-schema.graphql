@@ -1,0 +1,794 @@
+"""
+PortSwigger GraphQL Schema
+
+Two conceptual areas are documented here:
+
+1. Burp Suite DAST GraphQL API — the native, production GraphQL API at
+   https://your-server/graphql/v1 used to automate enterprise security scanning.
+   Types are derived from the published schema reference at
+   https://portswigger.net/burp/extensibility/enterprise/graphql-api/index.html
+
+2. Web Security Academy (WSA) — a conceptual data model for the learning platform
+   at https://portswigger.net/web-security. The platform has no public API; this
+   model is reconstructed from the published course structure and is annotated as
+   conceptual.
+"""
+
+# ---------------------------------------------------------------------------
+# PART 1: Burp Suite DAST GraphQL API
+# Source: https://portswigger.net/burp/extensibility/enterprise/graphql-api/index.html
+# ---------------------------------------------------------------------------
+
+"""Root query type for the Burp Suite DAST GraphQL API."""
+type Query {
+  """Retrieve a single site by its ID."""
+  site(id: ID!): Site
+
+  """List all registered sites."""
+  sites: [Site!]!
+
+  """Retrieve a scan by its ID."""
+  scan(id: ID!): Scan
+
+  """List scans, optionally filtered by site or status."""
+  scans(siteId: ID, status: ScanStatus): [Scan!]!
+
+  """Retrieve a scan configuration by ID."""
+  scanConfiguration(id: ID!): ScanConfiguration
+
+  """List all available scan configurations."""
+  scanConfigurations: [ScanConfiguration!]!
+
+  """Retrieve an agent by its ID."""
+  agent(id: ID!): Agent
+
+  """List all registered scanning agents."""
+  agents: [Agent!]!
+
+  """List all agent pools."""
+  agentPools: [AgentPool!]!
+
+  """Retrieve issues discovered in a scan."""
+  scanIssues(scanId: ID!): [Issue!]!
+
+  """Retrieve all issues for a site across scans."""
+  siteIssues(siteId: ID!): [Issue!]!
+
+  """Get the current DAST server version information."""
+  serverVersion: ServerVersion!
+}
+
+"""Root mutation type for the Burp Suite DAST GraphQL API."""
+type Mutation {
+  """Create a new site to be scanned."""
+  createSite(input: CreateSiteInput!): CreateSitePayload!
+
+  """Update an existing site's configuration."""
+  updateSite(input: UpdateSiteInput!): UpdateSitePayload!
+
+  """Delete a site and all associated scan history."""
+  deleteSite(input: DeleteSiteInput!): DeleteSitePayload!
+
+  """Start a new scan against a site."""
+  startScan(input: StartScanInput!): StartScanPayload!
+
+  """Cancel an in-progress scan."""
+  cancelScan(input: CancelScanInput!): CancelScanPayload!
+
+  """Delete a completed or cancelled scan."""
+  deleteScan(input: DeleteScanInput!): DeleteScanPayload!
+
+  """Create a new scan configuration profile."""
+  createScanConfiguration(input: CreateScanConfigurationInput!): CreateScanConfigurationPayload!
+
+  """Update an existing scan configuration."""
+  updateScanConfiguration(input: UpdateScanConfigurationInput!): UpdateScanConfigurationPayload!
+
+  """Delete a scan configuration."""
+  deleteScanConfiguration(input: DeleteScanConfigurationInput!): DeleteScanConfigurationPayload!
+
+  """Generate a vulnerability report for a scan."""
+  generateReport(input: GenerateReportInput!): GenerateReportPayload!
+}
+
+"""A target web application registered for scanning."""
+type Site {
+  """Unique identifier for the site."""
+  id: ID!
+
+  """Display name for the site."""
+  name: String!
+
+  """The base URLs included in the scan scope."""
+  scope: SiteScope!
+
+  """Application login credentials for authenticated scanning."""
+  applicationLogins: [ApplicationLogin!]!
+
+  """Scan configurations associated with this site."""
+  scanConfigurations: [ScanConfiguration!]!
+
+  """Most recent scans run against this site."""
+  scans: [Scan!]!
+
+  """Agent pool assigned to scan this site."""
+  agentPool: AgentPool
+
+  """ISO 8601 timestamp when the site was created."""
+  createdAt: String!
+
+  """ISO 8601 timestamp of the last modification."""
+  updatedAt: String!
+}
+
+"""The URL scope definition for a site."""
+type SiteScope {
+  """URLs explicitly included in scanning scope."""
+  includedUrls: [String!]!
+
+  """URLs explicitly excluded from scanning scope."""
+  excludedUrls: [String!]!
+}
+
+"""Credentials for logging into an application during an authenticated scan."""
+type ApplicationLogin {
+  """Unique identifier."""
+  id: ID!
+
+  """Human-readable label for this credential set."""
+  label: String!
+
+  """Username or email for login."""
+  username: String!
+
+  """The login URL where credentials are submitted."""
+  loginUrl: String!
+}
+
+"""A security scan execution against a site."""
+type Scan {
+  """Unique identifier for the scan."""
+  id: ID!
+
+  """The site this scan was run against."""
+  site: Site!
+
+  """Current execution status."""
+  status: ScanStatus!
+
+  """Percentage completion (0-100)."""
+  percentageComplete: Int
+
+  """ISO 8601 timestamp when the scan started."""
+  startedAt: String
+
+  """ISO 8601 timestamp when the scan completed or was cancelled."""
+  completedAt: String
+
+  """Summary metrics for issues discovered."""
+  issueCountsBySeverity: IssueCountsBySeverity
+
+  """The scan configuration used for this scan."""
+  scanConfiguration: ScanConfiguration
+
+  """Agent that executed this scan."""
+  agent: Agent
+}
+
+"""Possible states for a scan."""
+enum ScanStatus {
+  """Scan is queued and waiting for an agent."""
+  PENDING
+  """Scan is actively running."""
+  RUNNING
+  """Scan completed successfully."""
+  SUCCEEDED
+  """Scan was cancelled before completion."""
+  CANCELLED
+  """Scan encountered a fatal error."""
+  FAILED
+  """Scan was interrupted and may be resumed."""
+  PAUSED
+}
+
+"""Aggregate counts of issues grouped by severity level."""
+type IssueCountsBySeverity {
+  """Number of informational-severity issues."""
+  info: Int!
+  """Number of low-severity issues."""
+  low: Int!
+  """Number of medium-severity issues."""
+  medium: Int!
+  """Number of high-severity issues."""
+  high: Int!
+  """Number of critical-severity issues."""
+  critical: Int!
+}
+
+"""A vulnerability issue discovered during a scan."""
+type Issue {
+  """Unique identifier for the issue."""
+  id: ID!
+
+  """Short name identifying the vulnerability type."""
+  name: String!
+
+  """Detailed description of the vulnerability."""
+  description: String
+
+  """Severity classification of the issue."""
+  severity: IssueSeverity!
+
+  """Confidence level in the finding."""
+  confidence: IssueConfidence!
+
+  """The URL where the issue was discovered."""
+  origin: String
+
+  """The specific path on the target where the issue exists."""
+  path: String
+
+  """HTTP evidence snippets demonstrating the vulnerability."""
+  evidence: [IssueEvidence!]!
+
+  """Scan that produced this issue."""
+  scan: Scan!
+
+  """ISO 8601 timestamp when the issue was first detected."""
+  detectedAt: String!
+}
+
+"""Severity classification for a discovered issue."""
+enum IssueSeverity {
+  INFO
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+"""Confidence in the accuracy of a finding."""
+enum IssueConfidence {
+  TENTATIVE
+  FIRM
+  CERTAIN
+}
+
+"""HTTP request/response evidence for a vulnerability."""
+type IssueEvidence {
+  """The HTTP request that triggered or demonstrated the issue."""
+  request: String
+
+  """The HTTP response received."""
+  response: String
+
+  """Additional description of the evidence."""
+  detail: String
+}
+
+"""A reusable profile that controls scan behaviour."""
+type ScanConfiguration {
+  """Unique identifier."""
+  id: ID!
+
+  """Human-readable name for the configuration."""
+  name: String!
+
+  """The raw JSON configuration payload."""
+  configuration: String!
+}
+
+"""A Burp Suite DAST scanning agent instance."""
+type Agent {
+  """Unique identifier for the agent."""
+  id: ID!
+
+  """Display name of the agent."""
+  name: String!
+
+  """Current operational state of the agent."""
+  state: AgentState!
+
+  """The agent pool this agent belongs to."""
+  agentPool: AgentPool
+
+  """Software version of the agent."""
+  version: String
+
+  """ISO 8601 timestamp of last check-in."""
+  lastSeenAt: String
+}
+
+"""Possible states for a DAST scanning agent."""
+enum AgentState {
+  """Agent is connected and ready to accept scans."""
+  IDLE
+  """Agent is currently running a scan."""
+  RUNNING
+  """Agent is offline or unreachable."""
+  OFFLINE
+  """Agent is disabled and will not accept work."""
+  DISABLED
+}
+
+"""A named pool grouping one or more scanning agents."""
+type AgentPool {
+  """Unique identifier for the pool."""
+  id: ID!
+
+  """Display name of the pool."""
+  name: String!
+
+  """Agents belonging to this pool."""
+  agents: [Agent!]!
+
+  """Sites assigned to use this agent pool."""
+  sites: [Site!]!
+}
+
+"""Version metadata for the Burp Suite DAST server."""
+type ServerVersion {
+  """The version string, e.g. '2024.1.0'."""
+  version: String!
+
+  """ISO 8601 build timestamp."""
+  buildDate: String
+}
+
+"""Format options for generated reports."""
+enum ReportFormat {
+  HTML
+  XML
+  JSON
+}
+
+# ---------------------------------------------------------------------------
+# Input types for mutations
+# ---------------------------------------------------------------------------
+
+input CreateSiteInput {
+  name: String!
+  scope: SiteScopeInput!
+  scanConfigurationIds: [ID!]
+  applicationLogins: [ApplicationLoginInput!]
+  agentPoolId: ID
+}
+
+input UpdateSiteInput {
+  id: ID!
+  name: String
+  scope: SiteScopeInput
+  scanConfigurationIds: [ID!]
+  applicationLogins: [ApplicationLoginInput!]
+  agentPoolId: ID
+}
+
+input DeleteSiteInput {
+  id: ID!
+}
+
+input SiteScopeInput {
+  includedUrls: [String!]!
+  excludedUrls: [String!]
+}
+
+input ApplicationLoginInput {
+  label: String!
+  username: String!
+  password: String!
+  loginUrl: String!
+}
+
+input StartScanInput {
+  siteId: ID!
+  scanConfigurationIds: [ID!]
+  agentPoolId: ID
+}
+
+input CancelScanInput {
+  id: ID!
+}
+
+input DeleteScanInput {
+  id: ID!
+}
+
+input CreateScanConfigurationInput {
+  name: String!
+  configuration: String!
+}
+
+input UpdateScanConfigurationInput {
+  id: ID!
+  name: String
+  configuration: String
+}
+
+input DeleteScanConfigurationInput {
+  id: ID!
+}
+
+input GenerateReportInput {
+  scanId: ID!
+  format: ReportFormat!
+}
+
+# ---------------------------------------------------------------------------
+# Payload types for mutations
+# ---------------------------------------------------------------------------
+
+type CreateSitePayload {
+  site: Site
+  errors: [UserError!]!
+}
+
+type UpdateSitePayload {
+  site: Site
+  errors: [UserError!]!
+}
+
+type DeleteSitePayload {
+  id: ID
+  errors: [UserError!]!
+}
+
+type StartScanPayload {
+  scan: Scan
+  errors: [UserError!]!
+}
+
+type CancelScanPayload {
+  scan: Scan
+  errors: [UserError!]!
+}
+
+type DeleteScanPayload {
+  id: ID
+  errors: [UserError!]!
+}
+
+type CreateScanConfigurationPayload {
+  scanConfiguration: ScanConfiguration
+  errors: [UserError!]!
+}
+
+type UpdateScanConfigurationPayload {
+  scanConfiguration: ScanConfiguration
+  errors: [UserError!]!
+}
+
+type DeleteScanConfigurationPayload {
+  id: ID
+  errors: [UserError!]!
+}
+
+type GenerateReportPayload {
+  """Download URL for the generated report."""
+  reportUrl: String
+  errors: [UserError!]!
+}
+
+"""A validation or business-logic error returned in a mutation payload."""
+type UserError {
+  """Machine-readable error code."""
+  code: String!
+  """Human-readable error message."""
+  message: String!
+  """The field path that caused the error, if applicable."""
+  field: [String!]
+}
+
+# ---------------------------------------------------------------------------
+# PART 2: Web Security Academy Conceptual Data Model
+# Source: https://portswigger.net/web-security
+# Note: The WSA platform has no public API. This model is reconstructed from
+# the published curriculum structure and is marked conceptual.
+# ---------------------------------------------------------------------------
+
+"""
+A learner account on the Web Security Academy platform.
+CONCEPTUAL — derived from published platform structure.
+"""
+type User {
+  """Unique learner identifier."""
+  id: ID!
+
+  """Public display name."""
+  username: String!
+
+  """Email address used to log in."""
+  email: String!
+
+  """All learning paths the user is enrolled in."""
+  enrolledPaths: [Path!]!
+
+  """Individual labs the user has attempted."""
+  labAttempts: [LabAttempt!]!
+
+  """Certificates the user has earned."""
+  certificates: [Certificate!]!
+
+  """Aggregate learning progress across all topics."""
+  progress: UserProgress!
+}
+
+"""
+A curated learning path grouping related topics.
+CONCEPTUAL — e.g. 'Server-side vulnerabilities', 'Advanced topics'.
+"""
+type Path {
+  """Unique identifier for the path."""
+  id: ID!
+
+  """Display title, e.g. 'Server-side topics'."""
+  title: String!
+
+  """Short description of what the path covers."""
+  description: String
+
+  """Ordered list of topics within this path."""
+  topics: [Topic!]!
+
+  """Difficulty level of the path."""
+  difficulty: Difficulty!
+
+  """Estimated completion time in hours."""
+  estimatedHours: Int
+}
+
+"""
+A subject area within a learning path, e.g. 'SQL injection', 'GraphQL API attacks'.
+CONCEPTUAL — maps to a WSA topic page.
+"""
+type Topic {
+  """Unique identifier."""
+  id: ID!
+
+  """Topic title, e.g. 'GraphQL API attacks'."""
+  title: String!
+
+  """URL slug used in the WSA URL structure."""
+  slug: String!
+
+  """Full URL to the topic page."""
+  url: String!
+
+  """The path this topic belongs to."""
+  path: Path
+
+  """Reading material and explanations for this topic."""
+  learningMaterials: [LearningMaterial!]!
+
+  """Hands-on labs for this topic."""
+  labs: [Lab!]!
+
+  """Difficulty classification."""
+  difficulty: Difficulty!
+
+  """Prerequisite topics."""
+  prerequisites: [Topic!]!
+}
+
+"""
+Written explanatory content for a topic (theory, techniques, mitigations).
+CONCEPTUAL.
+"""
+type LearningMaterial {
+  """Unique identifier."""
+  id: ID!
+
+  """Title of the material."""
+  title: String!
+
+  """Full text content in Markdown or HTML."""
+  content: String!
+
+  """The topic this material belongs to."""
+  topic: Topic!
+
+  """Type of content."""
+  contentType: LearningMaterialType!
+}
+
+"""Classification of learning material."""
+enum LearningMaterialType {
+  """Conceptual explanation of a vulnerability."""
+  EXPLANATION
+  """Step-by-step attack walkthrough."""
+  WALKTHROUGH
+  """Defence and remediation guidance."""
+  MITIGATION
+  """Cheat sheet or quick reference."""
+  CHEAT_SHEET
+}
+
+"""
+A hands-on hacking lab hosted on the Web Security Academy.
+CONCEPTUAL — maps to a WSA lab exercise.
+"""
+type Lab {
+  """Unique identifier."""
+  id: ID!
+
+  """Lab title as shown on the WSA site."""
+  title: String!
+
+  """URL slug for the lab."""
+  slug: String!
+
+  """Full URL to launch the lab."""
+  url: String!
+
+  """The topic this lab teaches."""
+  topic: Topic!
+
+  """Difficulty level."""
+  difficulty: Difficulty!
+
+  """Type of lab (apprentice / practitioner / expert)."""
+  labType: LabType!
+
+  """Whether the lab requires a Pro account."""
+  requiresPro: Boolean!
+
+  """Short description of the lab scenario."""
+  description: String
+}
+
+"""Difficulty tiers used across labs, topics, and paths."""
+enum Difficulty {
+  """Beginner-friendly introductory content."""
+  APPRENTICE
+  """Intermediate content requiring some prior knowledge."""
+  PRACTITIONER
+  """Advanced content requiring deep expertise."""
+  EXPERT
+}
+
+"""WSA lab tier aligned with the Difficulty enum."""
+enum LabType {
+  APPRENTICE
+  PRACTITIONER
+  EXPERT
+}
+
+"""
+A learner's attempt and completion state for a specific lab.
+CONCEPTUAL.
+"""
+type LabAttempt {
+  """Unique identifier for this attempt record."""
+  id: ID!
+
+  """The user who made the attempt."""
+  user: User!
+
+  """The lab that was attempted."""
+  lab: Lab!
+
+  """Whether the lab goal was achieved."""
+  solved: Boolean!
+
+  """ISO 8601 timestamp of first attempt."""
+  startedAt: String!
+
+  """ISO 8601 timestamp when the lab was solved (null if unsolved)."""
+  solvedAt: String
+}
+
+"""
+Aggregate progress for a user across all enrolled content.
+CONCEPTUAL.
+"""
+type UserProgress {
+  """Number of labs solved."""
+  labsSolved: Int!
+
+  """Total number of available labs."""
+  totalLabs: Int!
+
+  """Percentage of labs solved (0-100)."""
+  completionPercentage: Float!
+
+  """Breakdown of labs solved per topic."""
+  byTopic: [TopicProgress!]!
+}
+
+"""Lab completion counts for a single topic."""
+type TopicProgress {
+  """The topic this progress refers to."""
+  topic: Topic!
+
+  """Number of labs solved in this topic."""
+  solved: Int!
+
+  """Total labs available in this topic."""
+  total: Int!
+}
+
+"""
+A certificate awarded upon completing a learning path or exam.
+CONCEPTUAL.
+"""
+type Certificate {
+  """Unique certificate identifier."""
+  id: ID!
+
+  """The user who earned the certificate."""
+  user: User!
+
+  """Title of the achievement, e.g. 'Web Security Professional'."""
+  title: String!
+
+  """ISO 8601 date the certificate was issued."""
+  issuedAt: String!
+
+  """Public verification URL for the certificate."""
+  verificationUrl: String
+
+  """The learning path or exam this certificate covers."""
+  path: Path
+}
+
+# ---------------------------------------------------------------------------
+# PART 3: GraphQL Vulnerability Patterns Researched by PortSwigger
+# These are documentary types modelling known GraphQL attack patterns.
+# Source: https://portswigger.net/web-security/graphql
+# ---------------------------------------------------------------------------
+
+"""
+A documented GraphQL vulnerability pattern from PortSwigger research.
+Used for security tooling, rule engines, and educational reference.
+"""
+type GraphQLVulnerability {
+  """Unique identifier for the vulnerability pattern."""
+  id: ID!
+
+  """Short name for the attack pattern."""
+  name: String!
+
+  """Full technical description of the vulnerability."""
+  description: String!
+
+  """CVE or CWE reference if applicable."""
+  cweReference: String
+
+  """Severity of successful exploitation."""
+  severity: IssueSeverity!
+
+  """Attack technique category."""
+  category: GraphQLAttackCategory!
+
+  """Canonical PortSwigger WSA reference URL."""
+  referenceUrl: String!
+
+  """Example malicious GraphQL payload demonstrating the attack."""
+  examplePayload: String
+
+  """Mitigation guidance."""
+  mitigation: String
+}
+
+"""Attack category for a GraphQL vulnerability pattern."""
+enum GraphQLAttackCategory {
+  """Abusing introspection to enumerate schema and types."""
+  INTROSPECTION_RECONNAISSANCE
+  """Bypassing disabled or filtered introspection."""
+  INTROSPECTION_BYPASS
+  """Finding hidden or undocumented GraphQL endpoints."""
+  ENDPOINT_DISCOVERY
+  """Exploiting unrestricted query depth or breadth."""
+  EXCESSIVE_QUERY_COMPLEXITY
+  """Accessing other users' data via GraphQL arguments."""
+  INSECURE_DIRECT_OBJECT_REFERENCE
+  """Using aliases to bypass rate limits."""
+  ALIAS_BASED_RATE_LIMIT_BYPASS
+  """Batching multiple operations to bypass per-request limits."""
+  QUERY_BATCHING_ABUSE
+  """Injecting hostile input through GraphQL arguments."""
+  GRAPHQL_INJECTION
+  """Leaking sensitive data via verbose error messages."""
+  INFORMATION_DISCLOSURE_VIA_ERRORS
+  """Performing mutations that should be restricted."""
+  BROKEN_ACCESS_CONTROL
+}

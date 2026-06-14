@@ -1,154 +1,142 @@
----
 aid: portswigger
 name: PortSwigger
-description: >-
-  PortSwigger is the UK-based security research company behind Burp Suite, the
-  industry-standard web and API security testing platform used by penetration
-  testers and enterprise AppSec teams worldwide. The platform is available as
-  Burp Suite Community Edition (free), Burp Suite Professional (manual testing
-  toolkit), and Burp Suite DAST (enterprise dynamic application security
-  testing). Developers can automate and integrate with Burp Suite DAST via a
-  GraphQL API and a REST API, both secured with API key authentication. PortSwigger
-  also provides the Montoya extension API for building custom Burp Suite
-  extensions and an official MCP Server extension that bridges Burp Suite with
-  AI clients such as Claude Desktop.
+description: PortSwigger is the UK-based security research company behind Burp Suite,
+  the industry-standard web and API security testing platform used by penetration
+  testers and enterprise AppSec teams worldwide. The platform is available as Burp
+  Suite Community Edition (free), Burp Suite Professional (manual testing toolkit),
+  and Burp Suite DAST (enterprise dynamic application security testing). Developers
+  can automate and integrate with Burp Suite DAST via a GraphQL API and a REST API,
+  both secured with API key authentication. PortSwigger also provides the Montoya
+  extension API for building custom Burp Suite extensions and an official MCP Server
+  extension that bridges Burp Suite with AI clients such as Claude Desktop.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Security
-  - Web Security
-  - Penetration Testing
-  - DAST
-  - API Security
-  - Developer Tools
+- Security
+- Web Security
+- Penetration Testing
+- DAST
+- API Security
+- Developer Tools
 url: https://raw.githubusercontent.com/api-evangelist/portswigger/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-06-12'
 specificationVersion: '0.19'
 apis:
-  - aid: portswigger:dast-graphql-api
-    name: Burp Suite DAST GraphQL API
-    description: >-
-      The primary API for integrating with Burp Suite DAST, recommended for all
-      new integrations. Exposes the broadest range of functionality including
-      managing sites, initiating and monitoring scans, retrieving vulnerability
-      issues, configuring agents, and generating reports. Authenticated via API
-      key in the Authorization header at the endpoint your-server/graphql/v1.
-    humanURL: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/graphql-api
-    baseURL: https://your-server/graphql/v1
-    tags:
-      - GraphQL
-      - DAST
-      - Security Scanning
-      - Automation
-    properties:
-      - type: Documentation
-        url: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/graphql-api
-      - type: GraphQLSchema
-        url: https://portswigger.net/burp/extensibility/enterprise/graphql-api/index.html
-
-  - aid: portswigger:dast-rest-api
-    name: Burp Suite DAST REST API
-    description: >-
-      A REST API for Burp Suite DAST that offers compatibility for users
-      familiar with the Burp Suite Professional API. Supports initiating scans
-      from CI/CD systems and failing builds on issue detection. The API is
-      self-documenting via interactive docs served at the server URL; API key
-      authentication is required. GraphQL is recommended for new integrations
-      as REST exposes a more limited feature set.
-    humanURL: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/rest
-    tags:
-      - REST
-      - DAST
-      - CI/CD
-      - Security Scanning
-    properties:
-      - type: Documentation
-        url: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/rest
-
-  - aid: portswigger:professional-rest-api
-    name: Burp Suite Professional REST API
-    description: >-
-      A local REST API built into Burp Suite Professional that allows external
-      tools to interact with the running Burp Suite instance. Accessible at a
-      configurable local service URL and API key combination. Supports
-      API-key-based authentication and exposes interactive documentation via the
-      running service endpoint. Intended for local automation and tool
-      integration during manual penetration testing workflows.
-    humanURL: https://portswigger.net/burp/documentation/desktop/settings/suite/rest-api
-    tags:
-      - REST
-      - Professional
-      - Penetration Testing
-      - Local API
-    properties:
-      - type: Documentation
-        url: https://portswigger.net/burp/documentation/desktop/settings/suite/rest-api
-
-  - aid: portswigger:montoya-extension-api
-    name: Burp Suite Montoya Extension API
-    description: >-
-      The Java-based extension API for building custom Burp Suite extensions
-      (BApps). The Montoya API is the current standard for extension development,
-      superseding the legacy Wiener API. Extensions can be published to the BApp
-      Store. The API is distributed via Maven and documented with full Javadoc
-      reference; example implementations are available on GitHub.
-    humanURL: https://portswigger.github.io/burp-extensions-montoya-api/javadoc/burp/api/montoya/MontoyaApi.html
-    tags:
-      - Java
-      - Extension API
-      - SDK
-      - BApp Store
-    properties:
-      - type: Documentation
-        url: https://portswigger.github.io/burp-extensions-montoya-api/javadoc/burp/api/montoya/MontoyaApi.html
-      - type: GitHubRepository
-        url: https://github.com/PortSwigger/burp-extensions-montoya-api
-
-  - aid: portswigger:mcp-server
-    name: Burp Suite MCP Server
-    description: >-
-      An official Model Context Protocol (MCP) server extension for Burp Suite
-      that bridges Burp Suite capabilities to AI clients such as Claude Desktop.
-      Runs as an SSE server on localhost port 9876, exposing Burp Suite tools
-      including proxy history access, HTTP request sending, Collaborator payload
-      generation, Repeater tab creation, and configuration management. Includes
-      an installer that automatically configures compatible AI clients.
-    humanURL: https://portswigger.net/bappstore/9952290f04ed4f628e624d0aa9dccebc
-    tags:
-      - MCP
-      - AI
-      - Claude
-      - Security Testing
-    properties:
-      - type: Documentation
-        url: https://portswigger.net/bappstore/9952290f04ed4f628e624d0aa9dccebc
-      - type: GitHubRepository
-        url: https://github.com/PortSwigger/mcp-server
-
-common:
-  - type: Website
-    url: https://portswigger.net
+- aid: portswigger:dast-graphql-api
+  name: Burp Suite DAST GraphQL API
+  description: The primary API for integrating with Burp Suite DAST, recommended for
+    all new integrations. Exposes the broadest range of functionality including managing
+    sites, initiating and monitoring scans, retrieving vulnerability issues, configuring
+    agents, and generating reports. Authenticated via API key in the Authorization
+    header at the endpoint your-server/graphql/v1.
+  humanURL: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/graphql-api
+  baseURL: https://your-server/graphql/v1
+  tags:
+  - GraphQL
+  - DAST
+  - Security Scanning
+  - Automation
+  properties:
   - type: Documentation
-    url: https://portswigger.net/burp/documentation
-  - type: GitHubOrganization
-    url: https://github.com/portswigger
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/portswigger
-  - type: Blog
-    url: https://portswigger.net/blog
-  - type: Pricing
-    url: https://portswigger.net/pricing
-  - type: X
-    url: https://twitter.com/PortSwigger
-  - type: Releases
-    url: https://portswigger.net/burp/releases
-  - type: Plans
-    url: plans/portswigger-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/portswigger-rate-limits.yml
-  - type: FinOps
-    url: finops/portswigger-finops.yml
+    url: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/graphql-api
+  - type: GraphQLSchema
+    url: https://portswigger.net/burp/extensibility/enterprise/graphql-api/index.html
+  - url: graphql/portswigger-graphql.md
+    type: GraphQL
+- aid: portswigger:dast-rest-api
+  name: Burp Suite DAST REST API
+  description: A REST API for Burp Suite DAST that offers compatibility for users
+    familiar with the Burp Suite Professional API. Supports initiating scans from
+    CI/CD systems and failing builds on issue detection. The API is self-documenting
+    via interactive docs served at the server URL; API key authentication is required.
+    GraphQL is recommended for new integrations as REST exposes a more limited feature
+    set.
+  humanURL: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/rest
+  tags:
+  - REST
+  - DAST
+  - CI/CD
+  - Security Scanning
+  properties:
+  - type: Documentation
+    url: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/rest
+- aid: portswigger:professional-rest-api
+  name: Burp Suite Professional REST API
+  description: A local REST API built into Burp Suite Professional that allows external
+    tools to interact with the running Burp Suite instance. Accessible at a configurable
+    local service URL and API key combination. Supports API-key-based authentication
+    and exposes interactive documentation via the running service endpoint. Intended
+    for local automation and tool integration during manual penetration testing workflows.
+  humanURL: https://portswigger.net/burp/documentation/desktop/settings/suite/rest-api
+  tags:
+  - REST
+  - Professional
+  - Penetration Testing
+  - Local API
+  properties:
+  - type: Documentation
+    url: https://portswigger.net/burp/documentation/desktop/settings/suite/rest-api
+- aid: portswigger:montoya-extension-api
+  name: Burp Suite Montoya Extension API
+  description: The Java-based extension API for building custom Burp Suite extensions
+    (BApps). The Montoya API is the current standard for extension development, superseding
+    the legacy Wiener API. Extensions can be published to the BApp Store. The API
+    is distributed via Maven and documented with full Javadoc reference; example implementations
+    are available on GitHub.
+  humanURL: https://portswigger.github.io/burp-extensions-montoya-api/javadoc/burp/api/montoya/MontoyaApi.html
+  tags:
+  - Java
+  - Extension API
+  - SDK
+  - BApp Store
+  properties:
+  - type: Documentation
+    url: https://portswigger.github.io/burp-extensions-montoya-api/javadoc/burp/api/montoya/MontoyaApi.html
+  - type: GitHubRepository
+    url: https://github.com/PortSwigger/burp-extensions-montoya-api
+- aid: portswigger:mcp-server
+  name: Burp Suite MCP Server
+  description: An official Model Context Protocol (MCP) server extension for Burp
+    Suite that bridges Burp Suite capabilities to AI clients such as Claude Desktop.
+    Runs as an SSE server on localhost port 9876, exposing Burp Suite tools including
+    proxy history access, HTTP request sending, Collaborator payload generation, Repeater
+    tab creation, and configuration management. Includes an installer that automatically
+    configures compatible AI clients.
+  humanURL: https://portswigger.net/bappstore/9952290f04ed4f628e624d0aa9dccebc
+  tags:
+  - MCP
+  - AI
+  - Claude
+  - Security Testing
+  properties:
+  - type: Documentation
+    url: https://portswigger.net/bappstore/9952290f04ed4f628e624d0aa9dccebc
+  - type: GitHubRepository
+    url: https://github.com/PortSwigger/mcp-server
+common:
+- type: Website
+  url: https://portswigger.net
+- type: Documentation
+  url: https://portswigger.net/burp/documentation
+- type: GitHubOrganization
+  url: https://github.com/portswigger
+- type: LinkedIn
+  url: https://www.linkedin.com/company/portswigger
+- type: Blog
+  url: https://portswigger.net/blog
+- type: Pricing
+  url: https://portswigger.net/pricing
+- type: X
+  url: https://twitter.com/PortSwigger
+- type: Releases
+  url: https://portswigger.net/burp/releases
+- type: Plans
+  url: plans/portswigger-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/portswigger-rate-limits.yml
+- type: FinOps
+  url: finops/portswigger-finops.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
