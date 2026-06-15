@@ -2,13 +2,20 @@
   "repo": "portswigger",
   "feeds": [
     {
-      "source": "https://portswigger.net/blog",
+      "source": "https://portswigger.net/blog/rss",
       "feed_url": "https://portswigger.net/blog/rss",
-      "title": "PortSwigger Blog",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://www.linkedin.com/company/portswigger",
+      "feed_url": "https://www.linkedin.com/company/portswigger",
+      "title": "",
       "saved": 0,
       "method": "none"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-12T00:00:00Z"
+  "fetched": "2026-06-14T20:42:17Z"
 }
