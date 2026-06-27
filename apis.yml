@@ -129,7 +129,7 @@ common:
   url: https://portswigger.net/pricing
 - type: X
   url: https://twitter.com/PortSwigger
-- type: Releases
+- type: ReleaseNotes
   url: https://portswigger.net/burp/releases
 - type: Plans
   url: plans/portswigger-plans-pricing.yml
