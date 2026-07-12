@@ -115,6 +115,10 @@ apis:
   - type: GitHubRepository
     url: https://github.com/PortSwigger/mcp-server
 common:
+- type: TrustCenter
+  url: security/portswigger-trust-center.yml
+- type: DomainSecurity
+  url: security/portswigger-domain-security.yml
 - type: Website
   url: https://portswigger.net
 - type: Documentation
