@@ -1,0 +1,7 @@
+---
+title: "3 ways custom scan checks turn practitioner knowledge into scalable automation"
+url: "https://portswigger.net/blog/3-ways-custom-scan-checks-turn-practitioner-knowledge-into-scalable-automation"
+date: "2026-05-01"
+feed_url: "https://portswigger.net/blog/rss"
+---
+Senior pentesters have a deeply refined intuition about what is vulnerable in an environment. The problem? That expertise is often siloed with an individual and trapped in their notes or Python scripts.
