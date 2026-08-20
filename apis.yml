@@ -118,6 +118,11 @@ apis:
   humanURL: https://portswigger.net/bappstore/9952290f04ed4f628e624d0aa9dccebc
   tags:
   - MCP
+  - Artificial Intelligence
+  - Claude
+  - Security Testing
+  tags_raw:
+  - MCP
   - AI
   - Claude
   - Security Testing
