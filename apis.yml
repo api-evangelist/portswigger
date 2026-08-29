@@ -10,6 +10,18 @@ description: PortSwigger is the UK-based security research company behind Burp S
   extension API for building custom Burp Suite extensions and an official MCP Server
   extension that bridges Burp Suite with AI clients such as Claude Desktop.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
@@ -132,6 +144,10 @@ apis:
   - type: GitHubRepository
     url: https://github.com/PortSwigger/mcp-server
 common:
+- type: IssueTracker
+  url: https://github.com/PortSwigger/burp-extensions-montoya-api/issues
+- type: Releases
+  url: https://github.com/PortSwigger/burp-extensions-montoya-api/releases
 - type: TrustCenter
   url: security/portswigger-trust-center.yml
 - type: DomainSecurity
