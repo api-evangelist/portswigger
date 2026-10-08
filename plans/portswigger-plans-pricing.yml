@@ -156,3 +156,40 @@ plans:
         unit: 1
         price: 'included'
         userMultiplied: false
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - seat
+  units:
+  - compute
+  - feature
+  - seat
+  plans:
+  - name: Community Edition
+    access: free
+    model: free
+    model_how: derived
+    units:
+    - feature
+    periods:
+    - month
+  - name: Professional
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - feature
+    - seat
+    periods:
+    - month
+  - name: DAST Enterprise
+    access: enterprise
+    model: free
+    model_how: derived
+    units:
+    - compute
+    - feature
+    periods:
+    - month
