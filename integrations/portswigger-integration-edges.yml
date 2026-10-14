@@ -1,0 +1,45 @@
+generated: '2026-10-14'
+method: searched
+checked:
+- https://github.com/marketplace?type=actions
+marketplace_apps: []
+edges:
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/dastardly-scan-action
+  listing_count: 2
+  apps:
+  - Dastardly Scan Action
+  - ci-driven-scan-github-action
+  publisher_name: PortSwigger
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/defectdojo-findings-threshold
+  listing_count: 3
+  apps:
+  - defectdojo findings threshold
+  - defectdojo import report
+  - defectdojo active findings
+  publisher_name: Portswigger Cloud
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+source:
+- https://github.com/marketplace?type=actions
