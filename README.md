@@ -1,4 +1,4 @@
-# PortSwigger (portswigger)
+# PortSwigger
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,60 +64,122 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-PortSwigger is the UK-based security research company behind Burp Suite, the industry-standard web and API security testing platform used by penetration testers and enterprise AppSec teams worldwide. The platform spans three editions — Community (free), Professional (annual per-user subscription), and DAST (enterprise dynamic application security testing) — and exposes developer APIs including a GraphQL API and REST API for automation and CI/CD integration, a Java-based Montoya extension API for building custom Burp Suite extensions, and an official MCP Server for AI client integration.
+PortSwigger is the UK-based security research company behind Burp Suite, the industry-standard web and API security testing platform used by penetration testers and enterprise AppSec teams worldwide. The platform is available as Burp Suite Community Edition (free), Burp Suite Professional (manual testing toolkit), and Burp Suite DAST (enterprise dynamic application security testing). Developers can automate and integrate with Burp Suite DAST via a GraphQL API and a REST API, both secured with API key authentication. PortSwigger also provides the Montoya extension API for building custom Burp Suite extensions and an official MCP Server extension that bridges Burp Suite with AI clients such as Claude Desktop.
 
-APIs.json: [https://raw.githubusercontent.com/api-evangelist/portswigger/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/portswigger/refs/heads/main/apis.yml)
+**Areas:** Security · Web Security · Penetration Testing · DAST · API Security · Developer Tools
 
-Naftiko Run: [https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=portswigger-api-evangelist&utm_content=repo](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=portswigger-api-evangelist&utm_content=repo)
+## PortSwigger on APIs.io
 
-## Tags
+Everything profiled for PortSwigger is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/portswigger/](https://apis.io/providers/portswigger/)** — or go straight to one of the APIs or properties below.
 
-Security, Web Security, Penetration Testing, DAST, API Security, Developer Tools
+### APIs (5)
 
-## APIs
+- [Burp Suite DAST GraphQL API](https://apis.io/apis/portswigger/dast-graphql-api/) — The primary API for integrating with Burp Suite DAST, recommended for all new integrations. Exposes the broadest range of functionality including managing…
+- [Burp Suite DAST REST API](https://apis.io/apis/portswigger/dast-rest-api/) — A REST API for Burp Suite DAST that offers compatibility for users familiar with the Burp Suite Professional API. Supports initiating scans from CI/CD…
+- [Burp Suite Professional REST API](https://apis.io/apis/portswigger/professional-rest-api/) — A local REST API built into Burp Suite Professional that allows external tools to interact with the running Burp Suite instance. Accessible at a…
+- [Burp Suite Montoya Extension API](https://apis.io/apis/portswigger/montoya-extension-api/) — The Java-based extension API for building custom Burp Suite extensions (BApps). The Montoya API is the current standard for extension development,…
+- [Burp Suite MCP Server](https://apis.io/apis/portswigger/mcp-server/) — An official Model Context Protocol (MCP) server extension for Burp Suite that bridges Burp Suite capabilities to AI clients such as Claude Desktop. Runs as…
 
-- **Burp Suite DAST GraphQL API** — Primary automation API for DAST; manages sites, scans, issues, agents, and reports via GraphQL at `your-server/graphql/v1`.
-  - Docs: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/graphql-api
-  - Schema: https://portswigger.net/burp/extensibility/enterprise/graphql-api/index.html
+### Published properties
 
-- **Burp Suite DAST REST API** — Legacy-compatible REST API for CI/CD scan initiation; API-key authenticated.
-  - Docs: https://portswigger.net/burp/documentation/dast/user-guide/api-documentation/rest
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Burp Suite Professional REST API** — Local REST API embedded in Burp Suite Professional for tool integration during manual pentests.
-  - Docs: https://portswigger.net/burp/documentation/desktop/settings/suite/rest-api
+#### GraphQL (1)
 
-- **Burp Suite Montoya Extension API** — Java SDK for building custom Burp Suite extensions published to the BApp Store.
-  - Docs: https://portswigger.github.io/burp-extensions-montoya-api/javadoc/burp/api/montoya/MontoyaApi.html
-  - GitHub: https://github.com/PortSwigger/burp-extensions-montoya-api
+GraphQL schemas.
 
-- **Burp Suite MCP Server** — Official MCP server extension bridging Burp Suite with AI clients (Claude Desktop, etc.) via SSE on localhost:9876.
-  - BApp Store: https://portswigger.net/bappstore/9952290f04ed4f628e624d0aa9dccebc
-  - GitHub: https://github.com/PortSwigger/mcp-server
+- [PortSwigger GraphQL](https://apis.io/graphqls/portswigger/portswigger-graphql/)
 
-## Plans / Rate Limits / FinOps
+#### JSON-LD (1)
 
-- [Plans & Pricing](plans/portswigger-plans-pricing.yml) — Community (free), Professional (annual per-user), DAST Enterprise (custom quote + PAYS option with 500 scan-hour/month default cap)
-- [Rate Limits](rate-limits/portswigger-rate-limits.yml) — No published per-minute API rate limits; PAYS enforces 500 scan-hours/month default cap
-- [FinOps](finops/portswigger-finops.yml) — FOCUS-aligned cost tracking for scan hours and user license consumption
+Linked-data contexts for the provider's vocabulary.
 
-## Timestamps
+- [Portswigger Context](https://apis.io/jsonld/portswigger/portswigger-context/)
 
-- Created: 2026-06-12
-- Modified: 2026-06-12
+#### Security (2)
 
-## Common Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-| Type | URL |
-|------|-----|
-| Website | https://portswigger.net |
-| Documentation | https://portswigger.net/burp/documentation |
-| GitHub Organization | https://github.com/portswigger |
-| LinkedIn | https://www.linkedin.com/company/portswigger |
-| Blog | https://portswigger.net/blog |
-| Pricing | https://portswigger.net/pricing |
-| X / Twitter | https://twitter.com/PortSwigger |
-| Releases | https://portswigger.net/burp/releases |
+- [Portswigger Domain Security](https://apis.io/security/portswigger/portswigger-domain-security/)
+- [Portswigger Trust Center](https://apis.io/security/portswigger/portswigger-trust-center/)
 
-## Maintainers
+#### Plans and pricing (1)
 
-- Kin Lane / kin@apievangelist.com
+Published plans, tiers and prices.
+
+- [Portswigger Plans Pricing](https://apis.io/plans/portswigger/portswigger-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Portswigger Rate Limits](https://apis.io/rate-limits/portswigger/portswigger-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Portswigger Finops](https://apis.io/finops/portswigger/portswigger-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://portswigger.net)
+- [Documentation](https://portswigger.net/burp/documentation)
+- [Pricing](https://portswigger.net/pricing)
+- [Blog](https://portswigger.net/blog)
+- [GitHub](https://github.com/portswigger)
+
+## API Evangelist rating
+
+**Kin Score 20.1** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 10.7 |
+| Contract governance | 0.0 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 26.3 |
+
+**Agent readiness 0.6** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/portswigger/](https://apis.io/providers/portswigger/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for PortSwigger: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/portswigger/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
